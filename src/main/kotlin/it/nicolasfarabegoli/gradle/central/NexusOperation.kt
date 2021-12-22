@@ -1,6 +1,10 @@
 package it.nicolasfarabegoli.gradle.central
 
-import io.github.gradlenexus.publishplugin.internal.* // ktlint-disable no-wildcard-imports
+import io.github.gradlenexus.publishplugin.internal.BasicActionRetrier
+import io.github.gradlenexus.publishplugin.internal.NexusClient
+import io.github.gradlenexus.publishplugin.internal.StagingRepository
+import io.github.gradlenexus.publishplugin.internal.StagingRepositoryDescriptor
+import io.github.gradlenexus.publishplugin.internal.StagingRepositoryTransitioner
 import org.gradle.api.Project
 import org.gradle.api.provider.Provider
 import java.net.URI
