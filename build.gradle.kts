@@ -116,9 +116,14 @@ nexusPublishing {
     repositories {
         create("central") {
             nexusUrl.set(uri("https://s01.oss.sonatype.org/service/local/"))
-            snapshotRepositoryUrl.set(uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))
             username.set(System.getenv("OSSRH_USERNAME"))
             password.set(System.getenv("OSSRH_PASSWORD"))
+        }
+
+        create("github") {
+            nexusUrl.set(uri("https://maven.pkg.github.com/nicolasfara/$name"))
+            username.set("nicolasfara")
+            password.set(System.getenv("GITHUB_TOKEN"))
         }
     }
 }
