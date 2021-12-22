@@ -1,0 +1,19 @@
+tagFormat: "${version}"
+plugins:
+  - "@semantic-release/commit-analyzer"
+  - "@semantic-release/release-notes-generator"
+  - "@semantic-release/changelog"
+  - "gradle-semantic-release-plugin"
+  -
+    - "@semantic-release/git"
+    - assets:
+        - gradle.properties
+        - CHANGELOG.md
+  -
+    - "@semantic-release/exec"
+    - publishCmd: |
+        git tag -a -f ${nextRelease.version} ${nextRelease.version} -F CHANGELOG.md
+        git push --force origin ${nextRelease.version}
+        ./gradlew releasePlugin || exit 1
+        ./gradlew publishPluginMavenPublicationToGithubRepository || exit 2
+  - "@semantic-release/github"
