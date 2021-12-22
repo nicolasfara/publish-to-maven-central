@@ -43,6 +43,7 @@ class PublishToMavenCentralTest : WordSpec({
             tasks.output shouldContain "publishPluginMavenPublicationToMavenCentralRepository"
             tasks.output shouldContain "releaseJavaMavenOnMavenCentralNexus"
             tasks.output shouldNotContain "releaseJavaMavenOnGithubNexus"
+            tasks.output shouldContain "releasePlugin"
         }
         "generate the pom correctly" {
             setupTest()
