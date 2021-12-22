@@ -1,0 +1,96 @@
+package it.nicolasfarabegoli.gradle.central
+
+import io.github.gradlenexus.publishplugin.internal.* // ktlint-disable no-wildcard-imports
+import org.gradle.api.Project
+import org.gradle.api.provider.Provider
+import java.net.URI
+import java.time.Duration
+
+data class NexusOperation(
+    private val project: Project,
+    private val nexusUrl: String,
+    private val username: Provider<String>,
+    private val password: Provider<String>,
+    private val timeOut: Duration,
+    private val connectionTimeOut: Duration,
+    private val group: String,
+) {
+
+    /**
+     * Repository description.
+     */
+    val description by lazy { project.run { "$group:$name:$version" } }
+
+    /**
+     * The NexusClient.
+     */
+    val client: NexusClient by lazy {
+        NexusClient(
+            project.uri(nexusUrl),
+            username.get(),
+            password.get(),
+            timeOut,
+            connectionTimeOut,
+        )
+    }
+
+    /**
+     * Lazily computed staging profile id.
+     */
+    val stagingProfile: String by lazy {
+        project.logger.lifecycle("Retrieving the profile id for $group on Nexus installed at $nexusUrl")
+        requireNotNull(client.findStagingProfileId(group)) {
+            "Invalid group id '$group': could not find an appropriate staging profile"
+        }
+    }
+
+    /**
+     * Lazily computed staging repository descriptor.
+     */
+    val stagingRepository: StagingRepositoryDescriptor by lazy {
+        project.logger.lifecycle("Creating repository for profile id {} on Nexus at {}", stagingProfile, nexusUrl)
+        client.createStagingRepository(
+            stagingProfile,
+            description,
+        )
+    }
+
+    /**
+     * Lazily computed staging repository url.
+     */
+    val repoUrl: URI by lazy { stagingRepository.stagingRepositoryUrl }
+
+    /**
+     * Lazily computed staging repository it.
+     */
+    val repoId: String by lazy { stagingRepository.stagingRepositoryId }
+
+    private val transitioner by lazy {
+        StagingRepositoryTransitioner(
+            client,
+            BasicActionRetrier(Int.MAX_VALUE, Duration.ofSeconds(retryInterval), StagingRepository::transitioning),
+        )
+    }
+
+    /**
+     * Closes the repository.
+     */
+    fun close() {
+        project.logger.lifecycle("Closing repository {} on Nexus at {}", repoId, repoUrl)
+        transitioner.effectivelyClose(repoId, description)
+        project.logger.lifecycle("Repository $repoId closed")
+    }
+
+    /**
+     * Releases the repository. Must be called after close().
+     */
+    fun release() {
+        project.logger.lifecycle("Releasing repository {} on Nexus at {}", repoId, repoUrl)
+        transitioner.effectivelyRelease(repoId, description)
+        project.logger.lifecycle("Repository {} released", repoId)
+    }
+
+    companion object {
+        private const val retryInterval: Long = 10
+    }
+}
