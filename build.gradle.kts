@@ -5,8 +5,8 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     `java-gradle-plugin`
-    `maven-publish`
-    signing
+//    `maven-publish`
+//    signing
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.detekt)
     alias(libs.plugins.jacoco)
@@ -14,7 +14,8 @@ plugins {
     alias(libs.plugins.publish)
     alias(libs.plugins.ktlint)
     alias(libs.plugins.taskTree)
-    alias(libs.plugins.publish.nexus)
+//    alias(libs.plugins.publish.nexus)
+    alias(libs.plugins.publish.central)
 }
 
 group = "it.nicolasfarabegoli"
@@ -36,17 +37,6 @@ dependencies {
     api(libs.nexus.publish)
     testImplementation(gradleTestKit())
     testImplementation(libs.bundles.kotest)
-}
-
-val javadocJar by tasks.registering(Jar::class) {
-    archiveClassifier.set("javadoc")
-    duplicatesStrategy = DuplicatesStrategy.WARN
-}
-
-val sourcesJar by tasks.registering(Jar::class) {
-    archiveClassifier.set("sources")
-    duplicatesStrategy = DuplicatesStrategy.WARN
-    from(sourceSets.main.get().allSource)
 }
 
 tasks.withType<KotlinCompile> {
@@ -80,57 +70,65 @@ gradlePlugin {
     }
 }
 
-publishing {
-    publications {
-        create<MavenPublication>("plugin") {
-            version = "${project.properties["version"]}"
-            artifact(javadocJar)
-            artifact(sourcesJar)
-
-            pom {
-                name.set("publish-to-maven-central")
-                description.set("A simple plugin configuring the process of publication to sonatype (Maven Central)")
-                url.set("https://github.com/nicolasfara/${project.name}")
-                licenses {
-                    license {
-                        name.set("Apache-2.0")
-                        url.set("https://www.apache.org/licenses/LICENSE-2.0")
+publishOnMavenCentral {
+    projectDescription.set("A plugin that allows you to publish to Maven Central with (almost) zero-config")
+    publishing {
+        publications {
+            withType<MavenPublication> {
+                pom {
+                    developers {
+                        developer {
+                            name.set("Nicolas Farabegoli")
+                            email.set("nicolas.farabegoli@gmail.com")
+                            url.set("https://github.com/nicolasfara")
+                        }
                     }
-                }
-                developers {
-                    developer {
-                        name.set("Nicolas Farabegoli")
-                        email.set("nicolas.farabegoli@gmail.com")
-                        url.set("https://github.com/nicolasfara")
-                    }
-                }
-                scm {
-                    url.set("https://github.com/nicolasfara/${project.name}")
                 }
             }
         }
     }
 }
 
-nexusPublishing {
-    repositories {
-        create("central") {
-            nexusUrl.set(uri("https://s01.oss.sonatype.org/service/local/"))
-            snapshotRepositoryUrl.set(uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))
-            username.set(System.getenv("OSSRH_USERNAME"))
-            password.set(System.getenv("OSSRH_PASSWORD"))
-        }
-    }
-}
-
-signing {
-    val signingKey: String? by project
-    val signingPassword: String? by project
-    useInMemoryPgpKeys(
-        System.getenv("GPG_KEY")
-            ?: signingKey,
-        System.getenv("GPG_PASSPHRASE")
-            ?: signingPassword
-    )
-    sign(publishing.publications)
-}
+// publishing {
+//    publications {
+//        create<MavenPublication>("plugin") {
+//            version = "${project.properties["version"]}"
+//            from(components["java"])
+//            artifact(project.property("sourcesJar"))
+//            artifact(project.property("javadocJar"))
+//
+//            pom {
+//                name.set("publish-to-maven-central")
+//                description.set("A simple plugin configuring the process of publication to sonatype (Maven Central)")
+//                url.set("https://github.com/nicolasfara/${project.name}")
+//                licenses {
+//                    license {
+//                        name.set("Apache-2.0")
+//                        url.set("https://www.apache.org/licenses/LICENSE-2.0")
+//                    }
+//                }
+//                developers {
+//                    developer {
+//                        name.set("Nicolas Farabegoli")
+//                        email.set("nicolas.farabegoli@gmail.com")
+//                        url.set("https://github.com/nicolasfara")
+//                    }
+//                }
+//                scm {
+//                    url.set("https://github.com/nicolasfara/${project.name}")
+//                }
+//            }
+//        }
+//    }
+// }
+//
+// nexusPublishing {
+//    repositories {
+//        create("central") {
+//            nexusUrl.set(uri("https://s01.oss.sonatype.org/service/local/"))
+//            snapshotRepositoryUrl.set(uri("https://s01.oss.sonatype.org/content/repositories/snapshots"))
+//            username.set(System.getenv("OSSRH_USERNAME"))
+//            password.set(System.getenv("OSSRH_PASSWORD"))
+//        }
+//    }
+// }
