@@ -1,3 +1,10 @@
+## [1.0.3](https://github.com/nicolasfara/publish-to-maven-central/compare/1.0.2...1.0.3) (2021-12-23)
+
+
+### Bug Fixes
+
+* use java 11 for release step ([1ca2248](https://github.com/nicolasfara/publish-to-maven-central/commit/1ca2248a2929ef1b47a19060a95b6cc7c9442d4f))
+
 ## [1.0.2](https://github.com/nicolasfara/publish-to-maven-central/compare/1.0.1...1.0.2) (2021-12-23)
 
 
