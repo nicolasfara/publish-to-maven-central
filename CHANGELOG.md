@@ -1,3 +1,11 @@
+## [1.0.1](https://github.com/nicolasfara/publish-to-maven-central/compare/1.0.0...1.0.1) (2021-12-23)
+
+
+### Bug Fixes
+
+* add secrets as env to publish to maven central ([b0ee71d](https://github.com/nicolasfara/publish-to-maven-central/commit/b0ee71db0ed470d83a25341c1d24d56e6025406a))
+* default sign with env var ([e79cc98](https://github.com/nicolasfara/publish-to-maven-central/commit/e79cc986bea7c082cc962816882c1beb81df020b))
+
 # 1.0.0 (2021-12-23)
 
 
