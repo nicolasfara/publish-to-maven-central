@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/nicolasfara/publish-to-maven-central/compare/1.0.1...1.0.2) (2021-12-23)
+
+
+### Bug Fixes
+
+* fix release command ([f451204](https://github.com/nicolasfara/publish-to-maven-central/commit/f451204cc87c142ac34f09cf838e356e54b0e840))
+
 ## [1.0.1](https://github.com/nicolasfara/publish-to-maven-central/compare/1.0.0...1.0.1) (2021-12-23)
 
 
