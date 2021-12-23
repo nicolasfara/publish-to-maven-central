@@ -1,3 +1,11 @@
+## [1.0.4](https://github.com/nicolasfara/publish-to-maven-central/compare/1.0.3...1.0.4) (2021-12-23)
+
+
+### Bug Fixes
+
+* remove github package registry ([a10f727](https://github.com/nicolasfara/publish-to-maven-central/commit/a10f72755ae67eb57fb784c6165a13d1f99b6246))
+* use the plugin for publishing ([724c069](https://github.com/nicolasfara/publish-to-maven-central/commit/724c069d6f8e380ece688fab6e73a6d94aca9b47))
+
 ## [1.0.3](https://github.com/nicolasfara/publish-to-maven-central/compare/1.0.2...1.0.3) (2021-12-23)
 
 
