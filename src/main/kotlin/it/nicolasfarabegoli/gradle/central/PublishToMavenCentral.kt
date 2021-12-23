@@ -9,6 +9,7 @@ import org.gradle.api.publish.PublishingExtension
 import org.gradle.api.publish.maven.MavenPublication
 import org.gradle.api.publish.maven.plugins.MavenPublishPlugin
 import org.gradle.api.tasks.javadoc.Javadoc
+import org.gradle.kotlin.dsl.provideDelegate
 import org.gradle.kotlin.dsl.the
 import org.gradle.kotlin.dsl.withType
 import org.gradle.plugins.signing.SigningExtension
@@ -55,6 +56,14 @@ class PublishToMavenCentral : Plugin<Project> {
                         publication.artifact(javadocJar)
 
                         project.configure<SigningExtension> {
+                            val signingKey: String? by project
+                            val signingPassword: String? by project
+                            useInMemoryPgpKeys(
+                                System.getenv("GPG_KEY")
+                                    ?: signingKey,
+                                System.getenv("GPG_PASSPHRASE")
+                                    ?: signingPassword
+                            )
                             sign(publication)
                         }
                     }
