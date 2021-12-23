@@ -14,5 +14,5 @@ plugins:
     - publishCmd: |
         git tag -a -f ${nextRelease.version} ${nextRelease.version} -F CHANGELOG.md
         git push --force origin ${nextRelease.version}
-        ./gradlew publishPluginMavenPublicationToCentralRepository || exit 1
+        ./gradlew releaseKotlin || exit 1
   - "@semantic-release/github"
