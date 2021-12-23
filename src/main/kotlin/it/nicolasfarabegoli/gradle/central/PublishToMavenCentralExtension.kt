@@ -2,6 +2,7 @@ package it.nicolasfarabegoli.gradle.central
 
 import org.gradle.api.Project
 import org.gradle.api.provider.Property
+import org.gradle.kotlin.dsl.property
 
 /**
  * Extension used to configure the plugin for the [project].
@@ -57,4 +58,30 @@ open class PublishToMavenCentralExtension(private val project: Project) {
         },
         nexusUrl = Repository.mavenCentralNexusUrl
     )
+
+    fun repository(
+        url: String,
+        name: String,
+        config: RepositoryDescriptor.() -> Unit = { }
+    ) {
+        val repositoryDescriptor = RepositoryDescriptor(project, name).apply(config)
+        val repo = Repository(
+            name = repositoryDescriptor.name,
+            url = url,
+            username = repositoryDescriptor.username,
+            password = repositoryDescriptor.password,
+            nexusUrl = repositoryDescriptor.nexusUrl
+        )
+
+        project.afterEvaluate { it.configureRepository(repo) }
+    }
+}
+
+class RepositoryDescriptor internal constructor(
+    project: Project,
+    var name: String,
+) {
+    val username: Property<String> = project.objects.property()
+    val password: Property<String> = project.objects.property()
+    val nexusUrl: String? = null
 }
