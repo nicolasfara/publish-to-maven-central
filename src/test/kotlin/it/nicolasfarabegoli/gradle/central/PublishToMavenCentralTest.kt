@@ -25,6 +25,10 @@ class PublishToMavenCentralTest : WordSpec({
             
             publishOnMavenCentral {
                 projectDescription.set("foo bar")
+                repository("https://maven.pkg.github.com/foo/bar", "github") {
+                    username.set("foo")
+                    password.set("bar")
+                }
             }
             """.trimIndent()
         )
@@ -41,8 +45,9 @@ class PublishToMavenCentralTest : WordSpec({
                 .build()
             tasks.output shouldContain "publishJavaMavenPublication"
             tasks.output shouldContain "publishPluginMavenPublicationToMavenCentralRepository"
+            tasks.output shouldContain "publishJavaMavenPublicationToGithubRepository"
             tasks.output shouldContain "releaseJavaMavenOnMavenCentralNexus"
-            tasks.output shouldNotContain "releaseJavaMavenOnGithubNexus"
+            tasks.output shouldContain "publishPluginMavenPublicationToGithubRepository"
             tasks.output shouldContain "releasePlugin"
         }
         "generate the pom correctly" {
