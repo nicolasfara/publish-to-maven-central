@@ -5,6 +5,10 @@ import org.gradle.api.tasks.SourceSet
 import org.gradle.api.tasks.SourceSetContainer
 import org.gradle.jvm.tasks.Jar
 
+/**
+ * Generic class to generate Jar with classifier.
+ * This generic task use the [Jar] class.
+ */
 open class JarClassifier(classifier: String) : Jar() {
     init {
         archiveClassifier.set(classifier)
@@ -12,8 +16,14 @@ open class JarClassifier(classifier: String) : Jar() {
     }
 }
 
+/**
+ * Class for generating javadoc jar.
+ */
 open class JavadocJar : JarClassifier("javadoc")
 
+/**
+ * Class for generating sources jar.
+ */
 open class SourcesJar : JarClassifier("sources") {
     init {
         val sourceSets = project.properties["sourceSets"] as? SourceSetContainer
