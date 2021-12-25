@@ -10,6 +10,9 @@ import org.gradle.api.provider.Provider
 import java.net.URI
 import java.time.Duration
 
+/**
+ * Utility class to generate operation on Nexus repository.
+ */
 data class NexusOperation(
     private val project: Project,
     private val nexusUrl: String,
