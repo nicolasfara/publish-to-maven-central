@@ -59,6 +59,9 @@ open class PublishToMavenCentralExtension(private val project: Project) {
         nexusUrl = Repository.mavenCentralNexusUrl
     )
 
+    /**
+     * Utility function for create new custom repository.
+     */
     fun repository(
         url: String,
         name: String,
