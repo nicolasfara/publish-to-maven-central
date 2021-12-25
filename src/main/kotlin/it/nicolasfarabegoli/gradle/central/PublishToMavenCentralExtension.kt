@@ -18,7 +18,7 @@ open class PublishToMavenCentralExtension(private val project: Project) {
     val projectDescription: Property<String> = project.propertyWithDefault(project.description)
 
     /**
-     * Name of the license. Use the SPDX short identifier: https://opensource.org/licenses.
+     * Name of the license. Use the SPDX short identifier, see [link](https://opensource.org/licenses).
      */
     val licenseName: Property<String> = project.propertyWithDefault("Apache-2.0")
 
