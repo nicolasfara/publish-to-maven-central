@@ -10,6 +10,9 @@ import org.gradle.kotlin.dsl.create
 import org.gradle.kotlin.dsl.the
 import org.gradle.kotlin.dsl.withType
 
+/**
+ * Extension useful to configure the POM file in the plugin.
+ */
 fun MavenPublication.configurePom(extension: PublishToMavenCentralExtension) {
     pom { pom ->
         with(pom) {
@@ -32,6 +35,9 @@ fun MavenPublication.configurePom(extension: PublishToMavenCentralExtension) {
     }
 }
 
+/**
+ * Extension useful to configure a new repository [repoToConfigure] in the project.
+ */
 fun Project.configureRepository(repoToConfigure: Repository) {
     extensions.configure(PublishingExtension::class) { publishing ->
         publishing.repositories { repository ->
@@ -55,6 +61,9 @@ fun Project.configureRepository(repoToConfigure: Repository) {
     repoToConfigure.nexusUrl?.let { configureNexusRepository(repoToConfigure, it) }
 }
 
+/**
+ * Extension useful to configure a new Nexus [repo] with [nexusUrl].
+ */
 fun Project.configureNexusRepository(repo: Repository, nexusUrl: String) {
     the<PublishingExtension>().publications.withType<MavenPublication>().forEach { pub ->
         val nexus = NexusOperation(
@@ -103,6 +112,9 @@ fun Project.configureNexusRepository(repo: Repository, nexusUrl: String) {
     }
 }
 
+/**
+ * Extension used to verify if credentials for repository are correctly setup, otherwise a warning is raised.
+ */
 fun Project.warnIfCredentialsAreMissing(repository: Repository) {
     repository.username.orNull ?: logger.warn(
         "No username configured for repository {} at {}.",
