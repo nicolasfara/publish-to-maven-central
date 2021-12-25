@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/nicolasfara/publish-to-maven-central/compare/1.0.4...1.1.0) (2021-12-25)
+
+
+### Features
+
+* add custom repository configuration ([b03b739](https://github.com/nicolasfara/publish-to-maven-central/commit/b03b73961af04766f6ce4256154c5d4ae9ad2e1c))
+
 ## [1.0.4](https://github.com/nicolasfara/publish-to-maven-central/compare/1.0.3...1.0.4) (2021-12-23)
 
 
