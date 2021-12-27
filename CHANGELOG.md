@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/nicolasfara/publish-to-maven-central/compare/1.1.0...1.1.1) (2021-12-27)
+
+
+### Bug Fixes
+
+* **deps:** update plugin dokka to v1.6.10 ([3c04cf8](https://github.com/nicolasfara/publish-to-maven-central/commit/3c04cf836fc383875e76b0e6c9c736b0ca3c24f6))
+
 # [1.1.0](https://github.com/nicolasfara/publish-to-maven-central/compare/1.0.4...1.1.0) (2021-12-25)
 
 
