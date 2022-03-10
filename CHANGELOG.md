@@ -1,3 +1,10 @@
+## [1.1.3](https://github.com/nicolasfara/publish-to-maven-central/compare/1.1.2...1.1.3) (2022-03-10)
+
+
+### Bug Fixes
+
+* **deps:** update dependency gradle to v7.4.1 ([a8df363](https://github.com/nicolasfara/publish-to-maven-central/commit/a8df363cd4a6b1049c95d0f85a685d5671c99e19))
+
 ## [1.1.2](https://github.com/nicolasfara/publish-to-maven-central/compare/1.1.1...1.1.2) (2022-02-08)
 
 
