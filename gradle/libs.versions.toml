@@ -15,7 +15,7 @@ nexus-publish = { module = "io.github.gradle-nexus:publish-plugin", version.ref 
 kotest = ["kotestJunit", "kotestAssertionJvm"]
 
 [plugins]
-dokka = { id = "org.jetbrains.dokka", version = "1.6.20" }
+dokka = { id = "org.jetbrains.dokka", version = "1.6.21" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlinVersion" }
 publish = { id = "com.gradle.plugin-publish", version = "0.21.0" }
 jacoco = { id = "pl.droidsonroids.jacoco.testkit", version = "1.0.9" }
