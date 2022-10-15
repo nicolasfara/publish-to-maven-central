@@ -39,6 +39,10 @@ dependencies {
     testImplementation(libs.bundles.kotest)
 }
 
+java {
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
 tasks.withType<KotlinCompile> {
     kotlinOptions {
         allWarningsAsErrors = true
