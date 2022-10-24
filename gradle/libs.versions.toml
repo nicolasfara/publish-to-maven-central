@@ -1,6 +1,6 @@
 [versions]
 kotlinVersion = "1.7.20"
-kotestVersion = "5.5.1"
+kotestVersion = "5.5.2"
 ktlintVersion = "11.0.0"
 detektVersion = "1.20.0"
 nexusVersion = "1.1.0"
